@@ -31,13 +31,13 @@ for user in users:
         position = 0
         
         if mode == 0:
-            position = SQL.query("SELECT COUNT(%s > PerformancePointsOsu) as position FROM Leaderboard WHERE OwnerId != %s", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE OwnerId != %s AND %s > PerformancePointsOsu", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
         elif mode == 1:
-            position = SQL.query("SELECT COUNT(%s > PerformancePointsTaiko) as position FROM Leaderboard WHERE OwnerId != %s", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE OwnerId != %s AND %s > PerformancePointsTaiko", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
         elif mode == 2:
-            position = SQL.query("SELECT COUNT(%s > PerformancePointsCtb) as position FROM Leaderboard WHERE OwnerId != %s", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE OwnerId != %s AND %s > PerformancePointsCtb", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
         elif mode == 3:
-            position = SQL.query("SELECT COUNT(%s > PerformancePointsMania) as position FROM Leaderboard WHERE OwnerId != %s", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE OwnerId != %s AND %s > PerformancePointsMania", (user['Id'], user_lb['PerformancePointsOsu']))[0]['position']
 
         last.append(position) # Next Position
         REDIS.set(key, json.dumps(last))

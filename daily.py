@@ -26,13 +26,13 @@ for user in users:
         position = 0
         
         if mode == 0:
-            position = SQL.query("SELECT COUNT(PerformancePointsOsu > PerformancePointsOsu) as position FROM Leaderboard WHERE Id = %s", user['Id'])[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE Id = %s AND PerformancePointsOsu > PerformancePointsOsu", user['Id'])[0]['position']
         elif mode == 1:
-            position = SQL.query("SELECT COUNT(PerformancePointsOsu > PerformancePointsOsu) as position FROM Leaderboard WHERE Id = %s", user['Id'])[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE Id = %s AND PerformancePointsOsu > PerformancePointsTaiko", user['Id'])[0]['position']
         elif mode == 2:
-            position = SQL.query("SELECT COUNT(PerformancePointsOsu > PerformancePointsOsu) as position FROM Leaderboard WHERE Id = %s", user['Id'])[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE Id = %s AND PerformancePointsOsu > PerformancePointsCtb", user['Id'])[0]['position']
         elif mode == 3:
-            position = SQL.query("SELECT COUNT(PerformancePointsOsu > PerformancePointsOsu) as position FROM Leaderboard WHERE Id = %s", user['Id'])[0]['position']
+            position = SQL.query("SELECT COUNT(*) as position FROM Leaderboard WHERE Id = %s AND PerformancePointsOsu > PerformancePointsMania", user['Id'])[0]['position']
 
         last.append(position) # Next Position
         REDIS.set(key, json.dumps(last))
